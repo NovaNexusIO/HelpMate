@@ -2,38 +2,40 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '../ui/button';
 import { ChevronRight, Heart, Award, Globe, Sparkles } from 'lucide-react';
+import { useLanguage } from '../shared/LanguageContext';
 
 interface OnboardingScreenProps {
   onComplete: () => void;
 }
 
-const slides = [
-  {
-    icon: Heart,
-    title: 'Connect & Share',
-    description: 'Create requests for help and connect with generous donors in your community who want to make a real difference.',
-    color: '#4c6ef5',
-    bgGradient: 'from-blue-50 to-blue-100',
-  },
-  {
-    icon: Award,
-    title: 'Get Rewarded',
-    description: 'Earn bonus points and recognition every time you donate or help someone in need. Your kindness matters!',
-    color: '#7950f2',
-    bgGradient: 'from-purple-50 to-purple-100',
-  },
-  {
-    icon: Globe,
-    title: 'Safe & Verified',
-    description: 'Help verified members with safe, transparent donations and secure transactions. Trust built into every interaction.',
-    color: '#4c6ef5',
-    bgGradient: 'from-green-50 to-green-100',
-  },
-];
-
 export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
+  const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
+
+  const slides = [
+    {
+      icon: Heart,
+      title: t.onboardingSlide1Title,
+      description: t.onboardingSlide1Desc,
+      color: '#4c6ef5',
+      bgGradient: 'from-blue-50 to-blue-100',
+    },
+    {
+      icon: Award,
+      title: t.onboardingSlide2Title,
+      description: t.onboardingSlide2Desc,
+      color: '#7950f2',
+      bgGradient: 'from-purple-50 to-purple-100',
+    },
+    {
+      icon: Globe,
+      title: t.onboardingSlide3Title,
+      description: t.onboardingSlide3Desc,
+      color: '#4c6ef5',
+      bgGradient: 'from-green-50 to-green-100',
+    },
+  ];
 
   const handleNext = () => {
     if (currentSlide < slides.length - 1) {
@@ -81,7 +83,7 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
           onClick={handleSkip}
           className="text-gray-500 px-4 py-2 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all"
         >
-          Skip
+          {t.skip}
         </button>
       </motion.div>
 
@@ -202,7 +204,7 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
         >
           {currentSlide < slides.length - 1 ? (
             <>
-              Continue
+              {t.continue}
               <motion.div
                 animate={{ x: [0, 2, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
@@ -212,7 +214,7 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
             </>
           ) : (
             <>
-              Get Started
+              {t.getStarted}
               <ChevronRight className="ml-2 w-5 h-5" />
             </>
           )}

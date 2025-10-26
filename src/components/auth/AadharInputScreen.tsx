@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
 import { CreditCard, Shield, ArrowLeft } from 'lucide-react';
+import { useLanguage } from '../shared/LanguageContext';
 
 interface AadharInputScreenProps {
   onComplete: (aadhar: string) => void;
@@ -9,6 +10,7 @@ interface AadharInputScreenProps {
 }
 
 export default function AadharInputScreen({ onComplete, onBack }: AadharInputScreenProps) {
+  const { t } = useLanguage();
   const [aadhar, setAadhar] = useState(['', '', '']);
   const [error, setError] = useState('');
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -65,7 +67,7 @@ export default function AadharInputScreen({ onComplete, onBack }: AadharInputScr
   const validateAadhar = () => {
     const fullAadhar = aadhar.join('');
     if (fullAadhar.length !== 12) {
-      setError('Aadhar number must be 12 digits');
+      setError(t.aadharMustBe12);
       return false;
     }
     return true;
@@ -80,7 +82,7 @@ export default function AadharInputScreen({ onComplete, onBack }: AadharInputScr
   const isFormValid = aadhar.every(part => part.length === 4);
 
   return (
-    <div className="h-[100vh] bg-white flex flex-col">
+    <div className="h-screen bg-white flex flex-col">
       {/* Back Button */}
       <div className="px-6 pt-6">
         <button
@@ -88,7 +90,7 @@ export default function AadharInputScreen({ onComplete, onBack }: AadharInputScr
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{t.back}</span>
         </button>
       </div>
 
@@ -108,9 +110,9 @@ export default function AadharInputScreen({ onComplete, onBack }: AadharInputScr
           >
             <CreditCard className="w-6 h-6 text-[#7950f2]" />
           </motion.div>
-          <h1 className="text-2xl font-bold text-gray-900">Aadhar Verification</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t.aadharVerification}</h1>
         </div>
-        <p className="text-sm text-gray-600">Enter your 12-digit Aadhar number</p>
+        <p className="text-sm text-gray-600">{t.enterAadhar}</p>
 
         {/* Progress Indicator */}
         <div className="flex gap-2 mt-6">
@@ -174,22 +176,22 @@ export default function AadharInputScreen({ onComplete, onBack }: AadharInputScr
           >
             {/* Security Info */}
             <div className="bg-purple-50 border border-purple-100 rounded-lg p-4 flex gap-3">
-              <Shield className="w-5 h-5 text-[#7950f2] flex-shrink-0 mt-0.5" />
+              <Shield className="w-5 h-5 text-[#7950f2] shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm font-medium text-gray-900 mb-1">Your data is secure</p>
+                <p className="text-sm font-medium text-gray-900 mb-1">{t.dataSecure}</p>
                 <p className="text-xs text-gray-600">
-                  We use end-to-end encryption to protect your Aadhar information. Your data will never be shared without your consent.
+                  {t.dataSecureDesc}
                 </p>
               </div>
             </div>
 
             {/* Why Aadhar */}
             <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
-              <p className="text-sm font-medium text-gray-900 mb-2">Why do we need Aadhar?</p>
+              <p className="text-sm font-medium text-gray-900 mb-2">{t.whyAadhar}</p>
               <ul className="text-xs text-gray-600 space-y-1">
-                <li>• Verify your identity to prevent fraud</li>
-                <li>• Ensure safe transactions for all users</li>
-                <li>• Build trust in the community</li>
+                <li>• {t.whyAadharPoint1}</li>
+                <li>• {t.whyAadharPoint2}</li>
+                <li>• {t.whyAadharPoint3}</li>
               </ul>
             </div>
           </motion.div>
@@ -203,7 +205,7 @@ export default function AadharInputScreen({ onComplete, onBack }: AadharInputScr
           disabled={!isFormValid}
           className="w-full bg-[#7950f2] hover:bg-[#6741d9] text-white h-14 text-lg rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#7950f2]"
         >
-          Send OTP
+          {t.sendOtp}
         </button>
       </div>
     </div>

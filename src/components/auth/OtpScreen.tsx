@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Button } from '../ui/button';
 import { Shield, ArrowLeft } from 'lucide-react';
+import { useLanguage } from '../shared/LanguageContext';
 
 interface OtpScreenProps {
   phone?: string;
@@ -11,6 +12,7 @@ interface OtpScreenProps {
 }
 
 export default function OtpScreen({ phone, aadhar, onVerify, onBack }: OtpScreenProps) {
+  const { t } = useLanguage();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [canResend, setCanResend] = useState(false);
   const [timer, setTimer] = useState(30);
@@ -83,7 +85,7 @@ export default function OtpScreen({ phone, aadhar, onVerify, onBack }: OtpScreen
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{t.back}</span>
         </button>
       </div>
 
@@ -103,10 +105,10 @@ export default function OtpScreen({ phone, aadhar, onVerify, onBack }: OtpScreen
           >
             <Shield className="w-6 h-6 text-green-600" />
           </motion.div>
-          <h1 className="text-2xl font-bold text-gray-900">Verify OTP</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t.verifyOtp}</h1>
         </div>
         <p className="text-sm text-gray-600">
-          Code sent to <span className="text-gray-900 font-medium">{displayText}</span>
+          {t.codeSentTo} <span className="text-gray-900 font-medium">{displayText}</span>
         </p>
 
         {/* Progress Indicator */}
@@ -155,11 +157,11 @@ export default function OtpScreen({ phone, aadhar, onVerify, onBack }: OtpScreen
               onClick={handleResend}
               className="text-[#4c6ef5] hover:text-[#4263eb] font-medium transition-colors"
             >
-              Resend code
+              {t.resendCode}
             </button>
           ) : (
             <p className="text-gray-500">
-              Resend code in <span className="font-medium text-gray-700">{timer}s</span>
+              {t.resendIn} <span className="font-medium text-gray-700">{timer}s</span>
             </p>
           )}
         </div>
@@ -172,7 +174,7 @@ export default function OtpScreen({ phone, aadhar, onVerify, onBack }: OtpScreen
           className="bg-blue-50 border border-blue-100 rounded-lg p-4 mt-8"
         >
           <p className="text-sm text-gray-700">
-            💡 Didn't receive the code? Check your messages or wait for the timer to resend.
+            💡 {t.didntReceiveCode}
           </p>
         </motion.div>
       </div>
@@ -189,7 +191,7 @@ export default function OtpScreen({ phone, aadhar, onVerify, onBack }: OtpScreen
           disabled={otp.some(digit => digit === '')}
           className="w-full bg-green-600 hover:bg-green-700 text-white h-14 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Verify & Continue
+          {t.verifyAndContinue}
         </Button>
       </motion.div>
     </div>

@@ -8,12 +8,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import { useLanguage } from '../shared/LanguageContext';
 
 interface PledgeScreenProps {
   onAccept: () => void;
 }
 
 export default function PledgeScreen({ onAccept }: PledgeScreenProps) {
+  const { t } = useLanguage();
   const [accepted, setAccepted] = useState(false);
 
   return (
@@ -27,40 +29,40 @@ export default function PledgeScreen({ onAccept }: PledgeScreenProps) {
               <Shield className="w-11 h-11 text-white" />
             </div>
           </div>
-          <h1 className="text-center text-gray-900 mb-2">Community Integrity Pledge</h1>
-          <p className="text-center text-gray-600">Help us maintain a safe and honest community</p>
+          <h1 className="text-center text-gray-900 mb-2">{t.communityPledge}</h1>
+          <p className="text-center text-gray-600">{t.maintainSafeCommunity}</p>
         </div>
 
         {/* Content */}
         <div className="px-6 pb-6">
           <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-200">
             <div className="space-y-4">
-              <h3 className="text-gray-900">I pledge to:</h3>
+              <h3 className="text-gray-900">{t.iPledgeTo}</h3>
               
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 flex-shrink-0" />
-                  <span>Use HelpMate honestly and transparently</span>
+                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 shrink-0" />
+                  <span>{t.pledgePoint1}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 flex-shrink-0" />
-                  <span>Provide accurate information in all donation requests</span>
+                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 shrink-0" />
+                  <span>{t.pledgePoint2}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 flex-shrink-0" />
-                  <span>Respect all community members and their contributions</span>
+                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 shrink-0" />
+                  <span>{t.pledgePoint3}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 flex-shrink-0" />
-                  <span>Report any misuse or fraudulent activity</span>
+                  <div className="w-1.5 h-1.5 bg-[#4c6ef5] rounded-full mt-2 shrink-0" />
+                  <span>{t.pledgePoint4}</span>
                 </li>
               </ul>
 
               <div className="pt-4 border-t border-gray-200">
                 <div className="flex items-start gap-2">
-                  <Info className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                  <Info className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
                   <p className="text-gray-600">
-                    Misuse of this platform, including fraudulent requests or harassment, may result in account suspension and legal action.
+                    {t.pledgeWarning}
                   </p>
                 </div>
               </div>
@@ -76,7 +78,7 @@ export default function PledgeScreen({ onAccept }: PledgeScreenProps) {
               className="mt-1"
             />
             <label htmlFor="accept" className="text-gray-700 cursor-pointer">
-              I have read and agree to the Community Integrity Pledge and understand the consequences of misuse
+              {t.agreeToPlege}
             </label>
           </div>
         </div>
@@ -89,7 +91,7 @@ export default function PledgeScreen({ onAccept }: PledgeScreenProps) {
           disabled={!accepted}
           className="w-full bg-[#4c6ef5] hover:bg-[#4263eb] text-white h-14 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          I Accept
+          {t.iAccept}
         </Button>
       </div>
     </div>

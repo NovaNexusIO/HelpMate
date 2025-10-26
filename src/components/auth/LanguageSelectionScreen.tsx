@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '../ui/button';
 import { Globe, Check, ArrowLeft } from 'lucide-react';
+import { useLanguage } from '../shared/LanguageContext';
 
 interface LanguageSelectionScreenProps {
   onComplete: (language: string) => void;
@@ -25,15 +26,19 @@ const languages = [
 
 export default function LanguageSelectionScreen({ onComplete, onBack }: LanguageSelectionScreenProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const { setLanguage, t } = useLanguage();
 
   const handleContinue = () => {
     if (selectedLanguage) {
+      // Update the global language context
+      setLanguage(selectedLanguage as any);
+      // Pass to parent for navigation
       onComplete(selectedLanguage);
     }
   };
 
   return (
-    <div className="h-[100vh] bg-white flex flex-col">
+    <div className="h-screen bg-white flex flex-col">
       {/* Back Button */}
       <div className="px-6 pt-6">
         <button
@@ -41,7 +46,7 @@ export default function LanguageSelectionScreen({ onComplete, onBack }: Language
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{t.back}</span>
         </button>
       </div>
 
@@ -62,8 +67,8 @@ export default function LanguageSelectionScreen({ onComplete, onBack }: Language
             <Globe className="w-10 h-10 text-[#4c6ef5]" />
           </motion.div>
         </div>
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">Choose Your Language</h1>
-        <p className="text-center text-gray-600">अपनी भाषा चुनें • Select your preferred language</p>
+        <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">{t.chooseYourLanguage}</h1>
+        <p className="text-center text-gray-600">अपनी भाषा चुनें • {t.selectPreferredLanguage}</p>
       </motion.div>
 
       {/* Language Grid */}
@@ -121,7 +126,7 @@ export default function LanguageSelectionScreen({ onComplete, onBack }: Language
           disabled={!selectedLanguage}
           className="w-full bg-[#4c6ef5] hover:bg-[#4263eb] text-white h-14 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Continue
+          {t.continue}
         </Button>
       </motion.div>
     </div>

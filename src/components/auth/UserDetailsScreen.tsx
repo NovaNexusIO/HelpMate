@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { User, Phone, Mail, ArrowLeft } from 'lucide-react';
+import { useLanguage } from '../shared/LanguageContext';
 
 interface UserDetailsScreenProps {
   onComplete: (details: { name: string; phone: string; email?: string }) => void;
@@ -11,6 +12,7 @@ interface UserDetailsScreenProps {
 }
 
 export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScreenProps) {
+  const { t } = useLanguage();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -30,19 +32,19 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
     const newErrors: { name?: string; phone?: string; email?: string } = {};
 
     if (!name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t.nameRequired;
     } else if (name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
+      newErrors.name = t.nameTooShort;
     }
 
     if (!phone) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = t.phoneRequired;
     } else if (phone.length !== 10) {
-      newErrors.phone = 'Phone number must be 10 digits';
+      newErrors.phone = t.phoneInvalid;
     }
 
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = 'Invalid email address';
+      newErrors.email = t.emailInvalid;
     }
 
     setErrors(newErrors);
@@ -70,7 +72,7 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{t.back}</span>
         </button>
       </div>
 
@@ -90,9 +92,9 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
           >
             <User className="w-6 h-6 text-[#4c6ef5]" />
           </motion.div>
-          <h1 className="text-2xl font-bold text-gray-900">Your Details</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t.yourDetails}</h1>
         </div>
-        <p className="text-sm text-gray-600">Let's get to know you</p>
+        <p className="text-sm text-gray-600">{t.letsGetToKnow}</p>
 
         {/* Progress Indicator */}
         <div className="flex gap-2 mt-6">
@@ -115,12 +117,12 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
           <div className="space-y-2">
             <Label htmlFor="name" className="flex items-center gap-2 text-gray-700 text-base">
               <User className="w-4 h-4" />
-              Full Name <span className="text-red-500">*</span>
+              {t.fullName} <span className="text-red-500">*</span>
             </Label>
             <Input
               id="name"
               type="text"
-              placeholder="Enter your full name"
+              placeholder={t.enterFullName}
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
@@ -143,7 +145,7 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
           <div className="space-y-2">
             <Label htmlFor="phone" className="flex items-center gap-2 text-gray-700 text-base">
               <Phone className="w-4 h-4" />
-              Phone Number <span className="text-red-500">*</span>
+              {t.phoneNumber} <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
               <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 font-medium pointer-events-none">
@@ -169,7 +171,7 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
               </motion.p>
             )}
             {phone.length > 0 && phone.length < 10 && !errors.phone && (
-              <p className="text-sm text-orange-600">{10 - phone.length} digits remaining</p>
+              <p className="text-sm text-orange-600">{10 - phone.length} {t.digitsRemaining}</p>
             )}
           </div>
 
@@ -177,12 +179,12 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
           <div className="space-y-2">
             <Label htmlFor="email" className="flex items-center gap-2 text-gray-700 text-base">
               <Mail className="w-4 h-4" />
-              Email <span className="text-gray-500 text-sm">(Optional)</span>
+              {t.emailOptional}
             </Label>
             <Input
               id="email"
               type="email"
-              placeholder="your.email@example.com"
+              placeholder={t.enterEmail}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -209,7 +211,7 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
             className="bg-blue-50 border border-blue-100 rounded-lg p-4"
           >
             <p className="text-sm text-gray-700">
-              📱 We'll send you an OTP to verify your phone number in the next step.
+              📱 {t.otpMessage}
             </p>
           </motion.div>
         </motion.div>
@@ -227,7 +229,7 @@ export default function UserDetailsScreen({ onComplete, onBack }: UserDetailsScr
           disabled={!isFormValid}
           className="w-full bg-[#4c6ef5] hover:bg-[#4263eb] text-white h-14 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Continue
+          {t.continue}
         </Button>
       </motion.div>
     </div>

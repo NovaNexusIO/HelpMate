@@ -22,7 +22,7 @@ export default function ProfilePage({ onBack, onNavigate }: ProfilePageProps) {
   const { language, setLanguage: setGlobalLanguage, t } = useLanguage();
   const { values, handleChange, hasChanges, save } = useForm({
     name: '',
-    email: 'abid@gmail.com',
+    email: 'test@gmail.com',
     phone: '+91 9876543210',
     location: 'Koramangala, Bangalore'
   });
@@ -150,23 +150,23 @@ export default function ProfilePage({ onBack, onNavigate }: ProfilePageProps) {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="language">
-                <Globe className="w-4 h-4 inline mr-1" />
-                {t.language} / भाषा
+          <Globe className="w-4 h-4 inline mr-1" />
+          {t.language} / भाषा
               </Label>
               <Select value={language} onValueChange={handleLanguageChange}>
-                <SelectTrigger id="language" className="h-12">
-                  <SelectValue placeholder="Select language" />
-                </SelectTrigger>
-                <SelectContent className="max-h-64">
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="hi">हिन्दी (Hindi)</SelectItem>
-                  <SelectItem value="bn">বাংলা (Bengali)</SelectItem>
-                  <SelectItem value="te">తెలుగు (Telugu)</SelectItem>
-                  <SelectItem value="mr">मराठी (Marathi)</SelectItem>
-                  <SelectItem value="ta">தமிழ் (Tamil)</SelectItem>
-                  <SelectItem value="gu">ગુજરાતી (Gujarati)</SelectItem>
-                  <SelectItem value="kn">ಕನ್ನಡ (Kannada)</SelectItem>
-                </SelectContent>
+          <SelectTrigger id="language" className="h-12">
+            <SelectValue placeholder="Select language" />
+          </SelectTrigger>
+          <SelectContent className="max-h-64 bg-white">
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="hi">हिन्दी (Hindi)</SelectItem>
+            <SelectItem value="bn">বাংলা (Bengali)</SelectItem>
+            <SelectItem value="te">తెలుగు (Telugu)</SelectItem>
+            <SelectItem value="mr">मराठी (Marathi)</SelectItem>
+            <SelectItem value="ta">தமிழ் (Tamil)</SelectItem>
+            <SelectItem value="gu">ગુજરાતી (Gujarati)</SelectItem>
+            <SelectItem value="kn">ಕನ್ನಡ (Kannada)</SelectItem>
+          </SelectContent>
               </Select>
               <p className="text-gray-500">UI labels will update when you change language</p>
             </div>

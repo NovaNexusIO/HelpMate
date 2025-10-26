@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '../ui/button';
 import { Upload, FileText, CheckCircle2, X, AlertCircle, ArrowLeft } from 'lucide-react';
 import { UserRole, VerificationType } from '../../types';
+import { useLanguage } from '../shared/LanguageContext';
 
 interface VerificationScreenProps {
   role: UserRole;
@@ -18,30 +19,31 @@ interface DocumentRequirement {
   requiredDocs: string[];
 }
 
-const verificationRequirements: Record<UserRole, DocumentRequirement | null> = {
-  volunteer: {
-    type: 'driver',
-    title: 'Driver License Verification',
-    description: 'As a volunteer driver, we need to verify your driving license',
-    requiredDocs: ['Valid Driver License (front)', 'Driver License (back)'],
-  },
-  receiver: {
-    type: 'orphanage',
-    title: 'Organization Verification',
-    description: 'Please provide certificates for your organization',
-    requiredDocs: [
-      'Organization Registration Certificate',
-      'Tax Exemption Certificate (if applicable)',
-      'Identity Proof of Organization Head',
-    ],
-  },
-  donor: null, // No verification needed for donors
-};
-
 export default function VerificationScreen({ role, onComplete, onSkip, onBack }: VerificationScreenProps) {
+  const { t } = useLanguage();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const verificationRequirements: Record<UserRole, DocumentRequirement | null> = {
+    volunteer: {
+      type: 'driver',
+      title: t.driverLicenseVerification,
+      description: t.driverLicenseDesc,
+      requiredDocs: ['Valid Driver License (front)', 'Driver License (back)'],
+    },
+    receiver: {
+      type: 'orphanage',
+      title: t.organizationVerification,
+      description: t.organizationVerificationDesc,
+      requiredDocs: [
+        'Organization Registration Certificate',
+        'Tax Exemption Certificate (if applicable)',
+        'Identity Proof of Organization Head',
+      ],
+    },
+    donor: null, // No verification needed for donors
+  };
 
   const requirement = verificationRequirements[role!];
 
@@ -87,7 +89,7 @@ export default function VerificationScreen({ role, onComplete, onSkip, onBack }:
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{t.back}</span>
         </button>
       </div>
 
@@ -112,7 +114,7 @@ export default function VerificationScreen({ role, onComplete, onSkip, onBack }:
         >
           {/* Required Documents List */}
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">📋 Required Documents:</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">📋 {t.requiredDocuments}:</h3>
             <ul className="space-y-2">
               {requirement.requiredDocs.map((doc, index) => (
                 <motion.li
@@ -150,9 +152,9 @@ export default function VerificationScreen({ role, onComplete, onSkip, onBack }:
             >
               <Upload className={`w-12 h-12 mx-auto mb-3 ${isDragging ? 'text-[#4c6ef5]' : 'text-gray-400'}`} />
               <p className="text-gray-700 font-medium mb-1">
-                {isDragging ? 'Drop files here' : 'Click to upload or drag and drop'}
+                {isDragging ? t.dropFiles : t.clickOrDrag}
               </p>
-              <p className="text-sm text-gray-500">PNG, JPG, or PDF (max 10MB each)</p>
+              <p className="text-sm text-gray-500">{t.fileFormats}</p>
             </motion.div>
             <input
               ref={fileInputRef}
@@ -173,7 +175,7 @@ export default function VerificationScreen({ role, onComplete, onSkip, onBack }:
                 exit={{ opacity: 0, height: 0 }}
                 className="space-y-3"
               >
-                <h3 className="text-sm font-semibold text-gray-900">Uploaded Documents:</h3>
+                <h3 className="text-sm font-semibold text-gray-900">{t.uploadedDocuments}:</h3>
                 {uploadedFiles.map((file, index) => (
                   <motion.div
                     key={index}
@@ -182,8 +184,8 @@ export default function VerificationScreen({ role, onComplete, onSkip, onBack }:
                     exit={{ opacity: 0, x: 20 }}
                     className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <FileText className="w-5 h-5 text-gray-600 flex-shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
+                    <FileText className="w-5 h-5 text-gray-600 shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
                       <p className="text-xs text-gray-500">{(file.size / 1024).toFixed(1)} KB</p>
@@ -205,11 +207,11 @@ export default function VerificationScreen({ role, onComplete, onSkip, onBack }:
 
           {/* Info Box */}
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3">
-            <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-medium text-gray-900 mb-1">Verification Process</p>
+              <p className="text-sm font-medium text-gray-900 mb-1">{t.verificationProcess}</p>
               <p className="text-xs text-gray-600">
-                Your documents will be reviewed within 24-48 hours. You'll receive a notification once verified.
+                {t.verificationProcessDesc}
               </p>
             </div>
           </div>
@@ -228,13 +230,13 @@ export default function VerificationScreen({ role, onComplete, onSkip, onBack }:
           disabled={uploadedFiles.length === 0}
           className="w-full bg-[#4c6ef5] hover:bg-[#4263eb] text-white h-14 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Submit Documents
+          {t.submitDocuments}
         </Button>
         <button
           onClick={onSkip}
           className="w-full text-gray-600 hover:text-gray-900 py-3 text-center transition-colors"
         >
-          Skip for now (Verify later)
+          {t.skipVerifyLater}
         </button>
       </motion.div>
     </div>
