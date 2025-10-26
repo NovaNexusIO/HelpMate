@@ -61,7 +61,7 @@ export default function MainApp({ userPhone }: MainAppProps) {
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="flex items-center justify-between px-4 pt-12 pb-4">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#4c6ef5] rounded-xl flex items-center justify-center shadow-sm">
+            <div className="w-11 h-11 bg-[#4c6ef5] rounded-xl flex items-center justify-center shadow-sm p-1">
               <HelpMateLogo className="w-8 h-8" />
             </div>
             <h1 className="text-gray-900">HelpMate</h1>
@@ -97,62 +97,62 @@ export default function MainApp({ userPhone }: MainAppProps) {
           <motion.button
             onClick={() => setActiveTab('home')}
             whileTap={{ scale: 0.95 }}
-            className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors ${
+            className={`flex-1 py-2.5 flex flex-col items-center justify-center gap-1 transition-all relative group ${
               activeTab === 'home'
-                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5] bg-blue-50'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5]'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
             }`}
           >
-            <Home className="w-5 h-5" />
-            <span className="text-xs sm:text-sm">{t.home}</span>
+            <Home className={`transition-all ${activeTab === 'home' ? 'w-5 h-5' : 'w-5 h-5'}`} />
+            <span className="text-[10px] font-medium leading-none">{t.home}</span>
           </motion.button>
           <motion.button
             onClick={() => setActiveTab('donation')}
             whileTap={{ scale: 0.95 }}
-            className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors ${
+            className={`flex-1 py-2.5 flex flex-col items-center justify-center gap-1 transition-all relative group ${
               activeTab === 'donation'
-                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5] bg-blue-50'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5]'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
             }`}
           >
-            <Heart className="w-5 h-5" />
-            <span className="text-xs sm:text-sm">{t.donation}</span>
+            <Heart className={`transition-all ${activeTab === 'donation' ? 'w-5 h-5' : 'w-5 h-5'}`} />
+            <span className="text-[10px] font-medium leading-none">{t.donation}</span>
           </motion.button>
           <motion.button
             onClick={() => setActiveTab('request')}
             whileTap={{ scale: 0.95 }}
-            className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors ${
+            className={`flex-1 py-2.5 flex flex-col items-center justify-center gap-1 transition-all relative group ${
               activeTab === 'request'
-                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5] bg-blue-50'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5]'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
             }`}
           >
-            <Gift className="w-5 h-5" />
-            <span className="text-xs sm:text-sm">{t.request}</span>
+            <Gift className={`transition-all ${activeTab === 'request' ? 'w-5 h-5' : 'w-5 h-5'}`} />
+            <span className="text-[10px] font-medium leading-none">{t.request}</span>
           </motion.button>
           <motion.button
             onClick={() => setActiveTab('volunteer')}
             whileTap={{ scale: 0.95 }}
-            className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors ${
+            className={`flex-1 py-2.5 flex flex-col items-center justify-center gap-1 transition-all relative group ${
               activeTab === 'volunteer'
-                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5] bg-blue-50'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5]'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
             }`}
           >
-            <Truck className="w-5 h-5" />
-            <span className="text-xs sm:text-sm">{t.volunteer}</span>
+            <Truck className={`transition-all ${activeTab === 'volunteer' ? 'w-5 h-5' : 'w-5 h-5'}`} />
+            <span className="text-[10px] font-medium leading-none">{t.volunteer}</span>
           </motion.button>
           <motion.button
             onClick={() => setActiveTab('map')}
             whileTap={{ scale: 0.95 }}
-            className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors ${
+            className={`flex-1 py-2.5 flex flex-col items-center justify-center gap-1 transition-all relative group ${
               activeTab === 'map'
-                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5] bg-blue-50'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-[#4c6ef5] border-b-2 border-[#4c6ef5]'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
             }`}
           >
-            <MapPin className="w-5 h-5" />
-            <span className="text-xs sm:text-sm">{t.map}</span>
+            <MapPin className={`transition-all ${activeTab === 'map' ? 'w-5 h-5' : 'w-5 h-5'}`} />
+            <span className="text-[10px] font-medium leading-none">{t.map}</span>
           </motion.button>
         </div>
       </div>

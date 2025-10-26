@@ -34,7 +34,7 @@ export default function SplashScreen() {
           transition={{ delay: 0.5, duration: 0.4 }}
           className="text-[#8b92b8] text-center"
         >
-          Help is just a hand away
+          Eradicating poverty,Empowering India
         </motion.p>
       </motion.div>
     </div>
